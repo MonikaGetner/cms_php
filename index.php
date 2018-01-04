@@ -23,9 +23,6 @@ include('router.php');
         echo '404 ';
     } else {
 
-
-
-
         if($router[$module_name]['admin'] === 1) {
             include ('layouts/header.php');
 
