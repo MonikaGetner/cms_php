@@ -33,7 +33,7 @@ echo '</tr>';
 foreach($comments as $item) {
     echo '<tr>';
     echo '<td>'.$item['id'].'</td>';
-    echo '<td>'.$item['author'].'</td>';
+    echo '<td>'.$item['body'].'</td>';
     echo '<td>'.$item['date'].'</td>';
     echo '<td>'.$item['title'].'</td>';
     echo '<td> <a class="btn btn-primary" href="?module=modify_comment&id='.$item['id'].'">Edytuj</a> </td>';

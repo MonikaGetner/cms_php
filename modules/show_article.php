@@ -1,4 +1,38 @@
-<h1>Jakis art</h1>
+<h1>Artykuł treść </h1>
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur assumenda beatae doloremque ducimus harum, non quos temporibus voluptas. A atque aut dicta fugiat magni molestiae nesciunt obcaecati odio odit officiis omnis, quasi reiciendis, repudiandae sequi sunt, tempora unde! Accusantium autem cum debitis doloremque, dolores et excepturi incidunt magni modi molestias nihil quas quibusdam repudiandae sunt ullam, voluptas voluptatum? Accusamus amet doloremque earum eligendi fugit nisi, nobis odio quia quidem recusandae? Accusamus alias aliquam atque aut consequuntur cum dolore illo inventore laboriosam, laudantium molestias non odio omnis optio pariatur possimus praesentium quas quidem soluta tempore tenetur ullam vel veritatis voluptas voluptates.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias aliquid consectetur dignissimos eaque eveniet expedita fugiat fugit iure minima modi molestias pariatur rem, repellendus sequi soluta unde voluptates voluptatibus.
+<a href="?module=front"> powrót do strony glownej</a>
+
+
+<?php
+
+
+if(isset($_GET['article_id']) ) {
+    $sth = $pdo->prepare('SELECT * FROM articles WHERE articles.id = :id_value');
+    $sth->bindParam(':id_value', $_GET['article_id']);
+    $sth->execute();
+    $article = $sth->fetch();
+
+    $sth = $pdo->prepare('select photos.* from photos join articles_photos on photos.id=articles_photos.photo_id where articles_photos.article_id = :id_value');
+    $sth->bindParam(':id_value', $_GET['article_id']);
+    $sth->execute();
+    $photos = $sth->fetchAll();
+
+}
+?>
+
+<div><strong><?php echo $article['title'] ?></strong></div>
+<div><strong>Autor: <?php echo $article['author'] ?></strong></div>
+<div class=".initialism"> <?php echo $article['body'];?> </div>
+
+
+<?php
+echo '<table class="table table-hover">';
+
+foreach ($photos as $photo) {
+    echo '<tr>';
+    echo '<td>' . $photo['id'] . '</td>';
+    echo '<td><img src="' . FOTO_URL . $photo['file'] . '" style="width: 120px;"><hr></td>';
+    echo '</tr>';
+    echo '</table>';
+}
+?>
